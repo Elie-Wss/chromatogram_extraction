@@ -115,7 +115,7 @@ def process_sample(sample_path, master_df, h5_file, out_img_dir):
         peak_name = row["Mol"]
         
         # Extract patch and mass spectrum
-        patch = extract_patch(chromato_cube, coord, patch_window)
+        patch = extract_patch(chromato_cube, coord, rt1_window, rt2_window)
         spectrum = read_spectrum_from_chromato_cube(coord, chromato_cube=chromato_cube)
         
         # Generate a unique ID for this extraction
