@@ -314,15 +314,15 @@ def main():
     args = parser.parse_args()
 
     try:
-        master_df_full = pd.read_csv(args.master_csv) # Read the full CSV
-        print(f"Read {len(master_df_full)} total rows from {args.master_csv}")
+        master_df = pd.read_csv(args.master_csv) # Read the full CSV
+        print(f"Read {len(master_df)} total rows from {args.master_csv}")
 
-        # --- Subsetting for QC ---
+        '''# --- Subsetting for QC ---
         # Process only the first 18 rows for quality control
         num_rows_to_process = 18
         master_df = master_df_full.head(num_rows_to_process)
         print(f"---!!! QC RUN ACTIVE !!!--- Processing only the first {num_rows_to_process} rows from the master CSV.",flush=True)
-        # --------------------------
+        # --------------------------'''
 
     except FileNotFoundError:
         print(f"Error: Master CSV file not found at {args.master_csv}")
@@ -331,14 +331,14 @@ def main():
         print(f"Error reading master CSV {args.master_csv}: {e}")
         return
 
-    # Add a check to see if the subset is empty
+    '''# Add a check to see if the subset is empty
     if master_df.empty:
         print("Warning: The subset of the first {num_rows_to_process} rows is empty. No processing will occur.")
-        return
+        return'''
 
     # Group the SUBSET DataFrame
     grouped = master_df.groupby("Sample")
-    print(f"Found {len(grouped)} sample(s) in the first {num_rows_to_process} rows.", flush=True)
+    print(f"Found {len(grouped)} sample group(s) to process in the full dataset.")
 
     # Create output directory
     os.makedirs(args.output_img_dir, exist_ok=True)
